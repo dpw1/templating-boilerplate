@@ -2,9 +2,7 @@
 
 ## Original creator: https://github.com/jadnco/static-boilerplate
 
-[![forthebadge](http://forthebadge.com/images/badges/powered-by-netflix.svg)](http://forthebadge.com)
-
-A starting point for creating static websites.
+A starting point for creating static websites with HTML modules.
 
 Features:
 * Sass/SCSS
