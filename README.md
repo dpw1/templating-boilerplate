@@ -1,4 +1,6 @@
-# Boilerplate
+# Templating Boilerplate
+
+## Original creator: https://github.com/jadnco/static-boilerplate
 
 [![forthebadge](http://forthebadge.com/images/badges/powered-by-netflix.svg)](http://forthebadge.com)
 
@@ -19,10 +21,6 @@ git clone https://github.com/jadnco/boilerplate.git
 ```
 
 Navigate to the directory to where it was cloned.
-
-```sh
-cd boilerplate
-```
 
 Install all dependencies using npm:
 
@@ -54,5 +52,5 @@ gulp deploy
 
 ### Credits
 
-- Responsive grid from [Skeleton](http://getskeleton.com) by [Dave Gamache](https://github.com/dhg)
+- https://github.com/jadnco/static-boilerplate
 
