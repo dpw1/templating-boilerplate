@@ -68,8 +68,15 @@ gulp.task('templates', () => {
   var opts = {
     ignorePartials: true,
     batch: ['src/partials'],
+    helpers : {
+        times : function(n, block){
+          var accum = '';
+          for(var i = 0; i < n; ++i)
+              accum += block.fn(i);
+          return accum;
+        }
+    }
   };
-
   gulp.src([paths.src.root + '/*.hbs'])
     .pipe(handlebars(null, opts))
     .on('error', util.log)
@@ -100,7 +107,7 @@ gulp.task('scripts', () => {
   * Uglify JS libs and move to dist folder
   */
   gulp.src([paths.src.libs])
-    .pipe(uglify())
+    //.pipe(uglify())
     .on('error', util.log)
     .pipe(gulp.dest(paths.dist.libs))
     .pipe(browserSync.reload({stream: true}));
