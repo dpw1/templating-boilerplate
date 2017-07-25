@@ -25,11 +25,14 @@ var paths = {
     this.src.libs        = this.src.root + '/js/libs/*.js';
     this.src.images      = this.src.root + '/images/**/*.{jpg,jpeg,svg,png,gif}';
     this.src.files       = this.src.root + '/*.{html,txt}';
+    this.src.fonts       = this.src.root + '/scss/fonts/*'
+
 
     this.dist.css        = this.dist.root + '/css';
     this.dist.images     = this.dist.root + '/images';
     this.dist.javascript = this.dist.root + '/js';
     this.dist.libs       = this.dist.root + '/js/libs';
+    this.dist.fonts      = this.dist.root + '/css/fonts'
 
     return this;
   },
@@ -38,11 +41,11 @@ var paths = {
 gulp.task('serve', () => {
   browserSync.init({
     server: paths.dist.root,
-    open: false,
+    open: true,
     notify: false,
 
     // Whether to listen on external
-    online: false,
+    online: true,
   });
 });
 
@@ -74,6 +77,13 @@ gulp.task('templates', () => {
           for(var i = 0; i < n; ++i)
               accum += block.fn(i);
           return accum;
+        },
+        ifCond : function (conditional, options){
+          if (options.hash.value === conditional)
+            return options.fn(this)
+          else
+            return options.inverse(this);
+
         }
     }
   };
@@ -98,7 +108,7 @@ gulp.task('scripts', () => {
     }))
     .pipe(concat('bundle.js'))
     .on('error', util.log)
-    .pipe(uglify())
+    //.pipe(uglify())
     .on('error', util.log)
     .pipe(gulp.dest(paths.dist.javascript))
     .pipe(browserSync.reload({stream: true}));
@@ -107,7 +117,7 @@ gulp.task('scripts', () => {
   * Uglify JS libs and move to dist folder
   */
   gulp.src([paths.src.libs])
-    //.pipe(uglify())
+    .pipe(uglify())
     .on('error', util.log)
     .pipe(gulp.dest(paths.dist.libs))
     .pipe(browserSync.reload({stream: true}));
@@ -118,6 +128,11 @@ gulp.task('images', () => {
     .pipe(gulp.dest(paths.dist.images));
 });
 
+gulp.task('fonts', () => {
+  gulp.src([paths.src.fonts])
+    .pipe(gulp.dest(paths.dist.fonts));
+});
+
 gulp.task('files', () => {
   gulp.src([paths.src.files])
     .pipe(gulp.dest(paths.dist.root));
@@ -125,6 +140,10 @@ gulp.task('files', () => {
 
 watch(paths.src.images, () => {
   gulp.start('images');
+});
+
+watch(paths.src.fonts, () => {
+  gulp.start('fonts');
 });
 
 watch(paths.src.files, () => {
@@ -142,4 +161,4 @@ gulp.task('deploy', () => {
     .pipe(ghPages());
 });
 
-gulp.task('default', ['watch', 'serve', 'images', 'files', 'styles', 'scripts', 'templates']);
+gulp.task('default', ['watch', 'serve', 'images', 'fonts', 'files', 'styles', 'scripts', 'templates']);
