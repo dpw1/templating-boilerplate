@@ -14,6 +14,8 @@ const ghPages     = require('gulp-gh-pages');
 const sassGlob    = require('gulp-sass-bulk-import');
 const watch       = require('gulp-watch');
 const babel       = require('gulp-babel');
+const uncss       = require('gulp-uncss');
+
 
 var paths = {
   src: { root: 'src' },
@@ -25,14 +27,15 @@ var paths = {
     this.src.libs        = this.src.root + '/js/libs/*.js';
     this.src.images      = this.src.root + '/images/**/*.{jpg,jpeg,svg,png,gif}';
     this.src.files       = this.src.root + '/*.{html,txt}';
-    this.src.fonts       = this.src.root + '/scss/fonts/*'
+    this.src.fonts       = this.src.root + '/scss/fonts/*';
 
 
     this.dist.css        = this.dist.root + '/css';
     this.dist.images     = this.dist.root + '/images';
     this.dist.javascript = this.dist.root + '/js';
     this.dist.libs       = this.dist.root + '/js/libs';
-    this.dist.fonts      = this.dist.root + '/css/fonts'
+    this.dist.fonts      = this.dist.root + '/css/fonts';
+
 
     return this;
   },
@@ -49,6 +52,20 @@ gulp.task('serve', () => {
   });
 });
 
+gulp.task('uncss', function() {
+  console.log('--- RUNNING UNCSS ---');
+  return gulp.src([
+      paths.dist.css + '/main.css',
+      'css/style.css'
+    ])
+    .pipe(uncss({
+      html: [
+        paths.dist.root + '/index.html',
+      ]
+    }))
+    .pipe(gulp.dest(paths.dist.css));
+});
+
 gulp.task('styles', () => {
   gulp.src([paths.src.sass])
     .pipe(sassGlob())
@@ -60,6 +77,12 @@ gulp.task('styles', () => {
     .on('error', util.log)
     .pipe(prefixer('last 2 versions'))
     .on('error', util.log)
+    // .pipe(concat('main.css'))
+    // .pipe(uncss({
+    //   html: [
+    //     paths.dist.root + '/index.html',
+    //   ]
+    // }))
     .pipe(gulp.dest(paths.dist.css))
     .pipe(browserSync.reload({stream: true}));
 });
