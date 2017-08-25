@@ -42,6 +42,12 @@ BrowserSync will automagically inject any changes you make to the stylesheets. Y
  ----------------------------------
 ```
 
+You can also remove all the un-used CSS by running the following command. Specify all the HTML files it should look for at gulpfile.js at the 'uncss' task. :)
+
+```sh
+gulp uncss
+```
+
 If you are working within a GitHub repo you can deploy your project, at any time, to a `gh-pages` branch by running:
 
 ```sh
