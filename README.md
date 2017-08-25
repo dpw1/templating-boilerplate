@@ -48,6 +48,16 @@ If you are working within a GitHub repo you can deploy your project, at any time
 gulp deploy
 ```
 
+### Extras
+
+#### UNCSS
+
+You can also remove all the un-used CSS by running the following command. It doesn't work with browsersync and should not be used during development. Use it once every deploy. :)
+
+```sh
+gulp uncss
+```
+
 ### Credits
 
 - https://github.com/jadnco/static-boilerplate
