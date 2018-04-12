@@ -1,8 +1,6 @@
 # Templating Boilerplate
 
-## Original creator: https://github.com/jadnco/static-boilerplate
-
-A starting point for creating static websites with HTML modules.
+## A starting point for creating static websites with HTML modules.
 
 Features:
 * Sass/SCSS
