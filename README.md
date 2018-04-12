@@ -1,12 +1,12 @@
 # Templating Boilerplate
 
-## A starting point for creating static websites with HTML modules.
+## Create static websites with HTML modules.
 
 Features:
 * Sass/SCSS
 * Handlebars templating
 * ES6 minification & bundling
-* Live injection/reload with BrowserSync 
+* Live reload with BrowserSync 
 
 ### Getting Started
 
